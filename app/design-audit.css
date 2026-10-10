@@ -173,3 +173,4 @@ body,.app-shell,.app-shell :is(button,input,textarea,select,h1,h2,h3,b,strong,la
 .app-shell .profile-info>b { font-size:16px; font-weight:650; }
 .app-shell .profile-info>span { display:flex; align-items:center; gap:10px; font-size:15px; line-height:1.5; overflow-wrap:anywhere; }
 .app-shell .profile-info>span>svg { width:18px; height:18px; flex-shrink:0; opacity:.8; }
+.app-shell .promise-date-form .remove-promise { margin-top:14px; width:100%; border:1px solid #b83f3d; background:transparent; color:#a23230; }

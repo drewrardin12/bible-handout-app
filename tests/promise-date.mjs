@@ -9,5 +9,6 @@ assert.equal(isSunday('2026-10-10'),false);
 assert.equal(isSunday('2026-02-31'),false);
 const p={date:'2026-10-10',status:'Promised',promiseDate:'2026-10-11',attendanceChecked:false};
 assert.equal(dashboardGroups([p],'2026-10-10').promised.length,1);
+assert.equal(dashboardGroups([{...p,promiseDate:'',status:'New'}],'2026-10-10').promised.length,0);
 assert.equal(dashboardGroups([{...p,attendanceChecked:true}],'2026-10-10').promised.length,0);
 console.log('Promise Sunday validation and shared dashboard status passed.');
