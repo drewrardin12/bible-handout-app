@@ -174,3 +174,10 @@ body,.app-shell,.app-shell :is(button,input,textarea,select,h1,h2,h3,b,strong,la
 .app-shell .profile-info>span { display:flex; align-items:center; gap:10px; font-size:15px; line-height:1.5; overflow-wrap:anywhere; }
 .app-shell .profile-info>span>svg { width:18px; height:18px; flex-shrink:0; opacity:.8; }
 .app-shell .promise-date-form .remove-promise { margin-top:14px; width:100%; border:1px solid #b83f3d; background:transparent; color:#a23230; }
+.app-shell .contact-history .ministry-timeline { padding:20px 18px; }
+.app-shell .contact-history .ministry-timeline article { grid-template-columns:48px minmax(0,1fr); gap:16px; min-height:112px; }
+.app-shell .contact-history .ministry-timeline p { font-size:18px; line-height:1.6; padding-top:8px; overflow-wrap:anywhere; }
+.app-shell .contact-history .ministry-timeline i { width:48px; height:48px; }
+.app-shell .contact-history .ministry-timeline i svg { width:24px; height:24px; }
+.app-shell .contact-history .ministry-timeline article:not(:last-child)::before { left:23px; top:48px; }
+.app-shell .contact-history .contact-top h2 { font-size:26px; }
