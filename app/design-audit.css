@@ -119,3 +119,17 @@ body,.app-shell,.app-shell :is(button,input,textarea,select,h1,h2,h3,b,strong,la
 .app-shell .metric-grid article b { display:block; margin:0; line-height:1.1; }
 .app-shell .report-period { margin:8px 0 24px; font-size:12px; letter-spacing:.06em; }
 .app-shell .report-period select { min-height:48px; font-size:16px; font-weight:500; letter-spacing:normal; }
+.app-shell :is(.contact-handout-link,.linked-contacts) { padding:20px; margin:16px 0; }
+.app-shell :is(.contact-handout-link,.linked-contacts) h3 { margin:0 0 16px; font-size:18px; }
+.app-shell :is(.contact-handout-link,.linked-contacts)>button { display:flex; align-items:center; gap:14px; width:100%; padding:16px; margin:10px 0; border:1px solid #ffffff35; border-radius:16px; background:#ffffff12; color:inherit; text-align:left; }
+.app-shell :is(.contact-handout-link,.linked-contacts)>button>span { flex:1; min-width:0; display:flex; flex-direction:column; gap:6px; }
+.app-shell :is(.contact-handout-link,.linked-contacts) small { font-size:14px; opacity:.8; }
+.app-shell .handout-select { display:flex; flex-direction:column; gap:8px; margin:20px 0; }
+.app-shell button { touch-action:manipulation; -webkit-tap-highlight-color:transparent; transition:transform 140ms ease,background-color 180ms ease,box-shadow 180ms ease; }
+.app-shell button:active:not(:disabled) { transform:scale(.97); }
+.app-shell .wing-transition { animation:wing-arrive 260ms cubic-bezier(.22,.8,.25,1); }
+.app-shell .overlay>:first-child { animation:page-arrive 280ms cubic-bezier(.22,.8,.25,1); }
+.app-shell .contact-suite>:not(.quiet-verse) { animation:wing-arrive 240ms ease-out; }
+@keyframes wing-arrive { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@keyframes page-arrive { from { opacity:0; transform:translateX(18px); } to { opacity:1; transform:translateX(0); } }
+@media(prefers-reduced-motion:reduce) { .app-shell *, .app-shell *::before, .app-shell *::after { animation:none!important; transition:none!important; } .app-shell button:active:not(:disabled) { transform:none; } }
