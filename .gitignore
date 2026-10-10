@@ -40,3 +40,5 @@ firestore-debug.log
 /.wrangler/
 /outputs/
 /work/
+
+functions/node_modules/

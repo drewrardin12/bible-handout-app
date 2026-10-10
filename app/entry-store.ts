@@ -1,0 +1,6 @@
+export type EntryCard={id:string;card:Record<string,any>;synced?:boolean};
+let database:Promise<IDBDatabase>;
+function open(){return database ||= new Promise((resolve,reject)=>{const r=indexedDB.open('acount-entry',1);r.onupgradeneeded=()=>r.result.createObjectStore('items',{keyPath:'id'});r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+export async function entryItems():Promise<EntryCard[]>{const db=await open();return new Promise((resolve,reject)=>{const r=db.transaction('items').objectStore('items').getAll();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+export async function putEntry(item:EntryCard){const db=await open();return new Promise<void>((resolve,reject)=>{const tx=db.transaction('items','readwrite');tx.objectStore('items').put(item);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);});}
+export async function saveEntryAndClearDraft(item:EntryCard){const db=await open();return new Promise<void>((resolve,reject)=>{const tx=db.transaction('items','readwrite');tx.objectStore('items').put(item);tx.objectStore('items').delete('draft');tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);});}

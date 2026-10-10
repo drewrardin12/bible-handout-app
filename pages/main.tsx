@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+import Entry from '../app/entry';
 import {useEffect,useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {GoogleAuthProvider,onIdTokenChanged,signInWithPopup,signOut,sendEmailVerification,type User} from 'firebase/auth';
@@ -29,4 +31,5 @@ function Gate(){
  if(account)return <AccountContext.Provider key={account.uid+account.ministryId} value={account}><App/></AccountContext.Provider>;
  return <main className="sign-in-screen"><h1>aCOUNT</h1><p>Sign in to your private ministry account.</p>{loading?<p>Checking access…</p>:user?<>{!user.emailVerified&&<><button onClick={()=>void user.reload().then(()=>user.getIdToken(true)).catch(()=>setError('Could not check verification. Please retry.'))}>Check verification</button><button className="secondary-auth" onClick={()=>void sendEmailVerification(user).then(()=>setError('Verification link sent. Check your inbox.')).catch(()=>setError('Could not send the link. Wait a little and retry.'))}>Resend verification email</button></>}<button className="secondary-auth" onClick={()=>void signOut(auth)}>Use another account</button></>:<><EmailSignIn/><div className="auth-divider">or</div><button className="secondary-auth" onClick={()=>{setError('');void signInWithPopup(auth,new GoogleAuthProvider()).catch(()=>setError('Google sign-in did not return to the app. Use email and app password above.'));}}>Sign in with Google</button></>}{error&&<p role="alert">{error}</p>}</main>;
 }
-createRoot(document.getElementById('root')!).render(<Gate/>);
+createRoot(document.getElementById('root')!).render((location.pathname.endsWith('/entry.html')||new URLSearchParams(location.search).has('entry'))?<Entry/>:<Gate/>);
+if('serviceWorker' in navigator && import.meta.env.PROD)void navigator.serviceWorker.register('./sw.js').catch(()=>{});

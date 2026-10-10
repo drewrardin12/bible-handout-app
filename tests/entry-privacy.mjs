@@ -1,0 +1,30 @@
+import {readFileSync} from 'node:fs';
+import {initializeTestEnvironment,assertFails,assertSucceeds} from '@firebase/rules-unit-testing';
+import {importEntryRecord} from '../app/import-entry-record.mjs';
+import {doc,collection,getDoc,getDocs,setDoc,updateDoc} from 'firebase/firestore';
+const env=await initializeTestEnvironment({projectId:'demo-handout-privacy',firestore:{rules:readFileSync('firestore.rules','utf8'),host:'127.0.0.1',port:8085}});
+try{
+ await env.clearFirestore();
+ await env.withSecurityRulesDisabled(async ctx=>{await setDoc(doc(ctx.firestore(),'members/approved'),{ministryId:'abm'});});
+ const anonymous=env.unauthenticatedContext().firestore(),member=env.authenticatedContext('approved',{email_verified:true,email:'test@example.test'}).firestore();
+ const path='ministries/abm/entryInbox/synthetic';
+ const card={name:'Synthetic card',phone:'555-0100',metDate:'2026-10-10',notes:'',rating:2};
+ await assertSucceeds(setDoc(doc(anonymous,path),{card},{merge:true}));
+ await assertSucceeds(setDoc(doc(anonymous,path),{card},{merge:true}));
+ await assertFails(getDoc(doc(anonymous,path)));
+ await assertFails(getDocs(collection(anonymous,'ministries/abm/entryInbox')));
+ await assertFails(setDoc(doc(anonymous,path),{card:{...card,name:'Changed'}},{merge:true}));
+ await assertFails(updateDoc(doc(anonymous,path),{processed:true}));
+ await assertFails(setDoc(doc(anonymous,'ministries/other/entryInbox/synthetic'),{card}));
+ await assertFails(setDoc(doc(anonymous,'ministries/abm/entryInbox/bad'),{card:{...card,rating:4}}));
+ await assertSucceeds(getDoc(doc(member,path)));
+ await assertSucceeds(updateDoc(doc(member,path),{processed:true}));
+ await assertSucceeds(setDoc(doc(anonymous,path),{card},{merge:true}));
+ const record=await getDoc(doc(member,path));if(record.data().processed!==true)throw new Error('Retry erased import status');
+ await setDoc(doc(anonymous,'ministries/abm/entryInbox/import-test'),{card});
+ await Promise.all([importEntryRecord(member,'abm','approved','import-test','outing-test'),importEntryRecord(member,'abm','approved','import-test','outing-test')]);
+ const imported=await getDoc(doc(member,'ministries/abm/records/entry-import-test'));
+ if(imported.data().revision!==1||imported.data().data.outingId!=='outing-test')throw new Error('Duplicate import or incorrect link');
+ if(!(await getDoc(doc(member,'ministries/abm/entryInbox/import-test'))).data().processed)throw new Error('Import not acknowledged');
+ console.log('Anonymous submit/retry allowed; public reads, edits, cross-ministry and forged import denied.');
+}finally{await env.cleanup();}
