@@ -1,1 +1,1 @@
-{"name":"aCOUNT Entry","short_name":"Entry","start_url":"./entry.html","display":"standalone","background_color":"#151918","theme_color":"#a6532c","icons":[{"src":"./app-icon.png","sizes":"512x512","type":"image/png"}]}
+{"name": "aCOUNT Entry", "short_name": "Entry", "start_url": "./entry.html", "display": "standalone", "background_color": "#151918", "theme_color": "#a6532c", "icons": [{"src": "./entry-icon.png", "sizes": "1254x1254", "type": "image/png", "purpose": "any"}]}
