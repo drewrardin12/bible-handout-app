@@ -180,4 +180,4 @@ body,.app-shell,.app-shell :is(button,input,textarea,select,h1,h2,h3,b,strong,la
 .app-shell .contact-history .ministry-timeline i { width:48px; height:48px; }
 .app-shell .contact-history .ministry-timeline i svg { width:24px; height:24px; }
 .app-shell .contact-history .ministry-timeline article:not(:last-child)::before { left:23px; top:48px; }
-.app-shell .contact-history .contact-top h2 { font-size:26px; }
+.app-shell .contact-history .contact-subhead h2 { font-size:26px; }
