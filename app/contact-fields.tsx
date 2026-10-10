@@ -6,3 +6,7 @@ export function NameAddressFields({value,change}:{value:ContactFields;change:(ke
 export function EventChoices({value,change}:{value:string;change:(value:string)=>void}){
  return <fieldset className="contact-event-choices"><legend>Handout / Event</legend><div>{[{label:'Handout',Icon:Hand},{label:'Door to door',Icon:DoorOpen},{label:'Other',Icon:Users}].map(({label,Icon})=><button type="button" key={label} aria-pressed={value===label} onClick={()=>change(label)}><Icon aria-hidden="true"/><span>{label}</span></button>)}</div>{value&&!['Handout','Door to door','Other'].includes(value)&&<small>Current type: {value}. Choose an icon to change it.</small>}</fieldset>;
 }
+
+export function OutreachAnswers({value,change}:{value:{gospelShared?:string;decisionMade?:string};change:(key:'gospelShared'|'decisionMade',value:string)=>void}){
+ return <>{(['gospelShared','decisionMade'] as const).map(key=><fieldset className="contact-event-choices outreach-answers" key={key}><legend>{key==='gospelShared'?'Gospel shared?':'Decision made?'}</legend><div>{['Yes','No'].map(answer=><button type="button" key={answer} aria-pressed={value[key]===answer} onClick={()=>change(key,value[key]===answer?'':answer)}>{answer}</button>)}</div></fieldset>)}</>;
+}
