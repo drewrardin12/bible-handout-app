@@ -2,18 +2,27 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     // Membership is managed in the Firebase console, never by public app code.
-    function member() {
-      return request.auth != null
-        && request.auth.token.email_verified == true
-        && exists(/databases/$(database)/documents/members/$(request.auth.uid));
+    function verified() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+    function member(ministryId) {
+      let membership = /databases/$(database)/documents/members/$(request.auth.uid);
+      let invitation = /databases/$(database)/documents/accessInvites/$(request.auth.token.email);
+      return verified() && (
+        (exists(membership) && get(membership).data.get('ministryId','abm') == ministryId)
+        || (!exists(membership) && exists(invitation) && get(invitation).data.ministryId == ministryId));
     }
     match /members/{uid} {
       allow get: if request.auth != null && request.auth.uid == uid;
       allow list, write: if false;
     }
-    match /ministries/abm/settings/templates {
-      allow read: if member();
-      allow create, update: if member()
+    match /accessInvites/{email} {
+      allow get: if verified() && request.auth.token.email == email;
+      allow list, write: if false;
+    }
+    match /ministries/{ministryId}/settings/templates {
+      allow read: if verified() && member(ministryId);
+      allow create, update: if verified() && member(ministryId)
         && request.resource.data.keys().hasOnly(['items','revision','updatedBy','updatedAt'])
         && request.resource.data.items is map
         && request.resource.data.items.size() <= 20
@@ -23,8 +32,8 @@ service cloud.firestore {
         && request.resource.data.updatedAt == request.time;
       allow delete: if false;
     }
-    match /ministries/abm/records/{id} {
-      allow read: if member();
+    match /ministries/{ministryId}/records/{id} {
+      allow read: if verified() && member(ministryId);
       function valid() {
         let d = request.resource.data;
         return d.keys().hasOnly(['kind','data','revision','updatedBy','updatedAt'])
@@ -41,8 +50,8 @@ service cloud.firestore {
           && d.updatedBy == request.auth.uid
           && d.updatedAt == request.time;
       }
-      allow create: if member() && valid() && request.resource.data.revision == 1;
-      allow update: if member() && valid()
+      allow create: if verified() && member(ministryId) && valid() && request.resource.data.revision == 1;
+      allow update: if verified() && member(ministryId) && valid()
         && request.resource.data.kind == resource.data.kind
         && request.resource.data.revision == resource.data.revision + 1;
       allow delete: if false;

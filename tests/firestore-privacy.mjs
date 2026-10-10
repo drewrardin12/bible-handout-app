@@ -5,7 +5,7 @@ const env=await initializeTestEnvironment({projectId:'demo-handout-privacy',fire
 const path='ministries/abm/records/test-contact';
 try {
  await env.withSecurityRulesDisabled(async ctx=>{await setDoc(doc(ctx.firestore(),'members/approved'),{name:'Test member'});await setDoc(doc(ctx.firestore(),path),{kind:'contact',data:{name:'Synthetic test'},revision:1,updatedBy:'approved',updatedAt:new Date()});});
- for(const ctx of [env.unauthenticatedContext(),env.authenticatedContext('outsider',{email_verified:true}),env.authenticatedContext('approved',{email_verified:false})]) {
+ for(const ctx of [env.unauthenticatedContext(),env.authenticatedContext('outsider',{email_verified:true,email:'synthetic@example.test'}),env.authenticatedContext('approved',{email_verified:false,email:'synthetic@example.test'})]) {
   const db=ctx.firestore();
   await assertFails(getDoc(doc(db,path)));
   await assertFails(getDoc(doc(db,'ministries/abm/settings/templates')));
@@ -15,7 +15,7 @@ try {
   await assertFails(updateDoc(doc(db,path),{revision:2}));
   await assertFails(setDoc(doc(db,'members/outsider'),{name:'Self approval'}));
  }
- const db=env.authenticatedContext('approved',{email_verified:true}).firestore();
+ const db=env.authenticatedContext('approved',{email_verified:true,email:'synthetic@example.test'}).firestore();
  await assertSucceeds(getDoc(doc(db,path)));
  const template=doc(db,'ministries/abm/settings/templates');
  await assertSucceeds(setDoc(template,{items:{test:'Hello'},revision:1,updatedBy:'approved',updatedAt:serverTimestamp()}));
@@ -30,5 +30,24 @@ try {
  await assertFails(updateDoc(doc(db,path),{revision:2,updatedAt:serverTimestamp()}));
  await assertFails(deleteDoc(doc(db,path)));
  await assertFails(setDoc(doc(db,'ministries/other/records/test'),{kind:'contact',data:{name:'Test'}}));
+ await env.withSecurityRulesDisabled(async ctx=>{await setDoc(doc(ctx.firestore(),'accessInvites/second@example.test'),{ministryId:'separate-test',name:'Synthetic second account'});});
+ const second=env.authenticatedContext('second',{email_verified:true,email:'second@example.test'}).firestore();
+ await assertFails(getDoc(doc(second,path)));
+ await assertFails(getDocs(collection(second,'ministries/abm/records')));
+ await assertFails(getDoc(doc(second,'ministries/abm/settings/templates')));
+ await assertFails(setDoc(doc(second,'ministries/abm/records/cross'),{kind:'contact',data:{name:'Cross'},revision:1,updatedBy:'second',updatedAt:serverTimestamp()}));
+ const separatePath='ministries/separate-test/records/own';
+ await assertSucceeds(setDoc(doc(second,separatePath),{kind:'contact',data:{name:'Separate synthetic'},revision:1,updatedBy:'second',updatedAt:serverTimestamp()}));
+ await assertSucceeds(getDocs(collection(second,'ministries/separate-test/records')));
+ await assertFails(getDoc(doc(db,separatePath)));
+ await assertFails(getDocs(collection(db,'ministries/separate-test/records')));
+ await assertFails(setDoc(doc(db,separatePath),{kind:'contact',data:{name:'Cross'},revision:2,updatedBy:'approved',updatedAt:serverTimestamp()}));
+ const secondTemplate=doc(second,'ministries/separate-test/settings/templates');
+ await assertSucceeds(setDoc(secondTemplate,{items:{test:'Separate template'},revision:1,updatedBy:'second',updatedAt:serverTimestamp()}));
+ await assertFails(getDoc(doc(db,'ministries/separate-test/settings/templates')));
+ await assertFails(getDocs(collection(second,'accessInvites')));
+ await assertFails(getDoc(doc(second,'accessInvites/synthetic@example.test')));
+ await assertFails(setDoc(doc(second,'accessInvites/second@example.test'),{ministryId:'abm'}));
+ await assertFails(getDoc(doc(env.authenticatedContext('second',{email_verified:false,email:'second@example.test'}).firestore(),separatePath)));
  console.log('Privacy passed: anonymous, nonmember, unverified, self-approval, cross-ministry, stale writes and deletion denied; approved read/save allowed.');
 } finally {await env.cleanup();}
