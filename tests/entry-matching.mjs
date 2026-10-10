@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {outingDate,outingName,matchingOutings} from '../app/outing-entry.mjs';
+const outings=[{id:'a',date:'Oct 10, 2026',location:'Albuquerque'},{id:'b',date:'2026-10-11',location:'Park'}];
+assert.equal(outingName(outings[0]),'Albuquerque — 10-10-2026');
+assert.equal(outingDate(outings[0].date),'2026-10-10');
+assert.deepEqual(matchingOutings({metDate:'2026-10-10'},outings).map(o=>o.id),['a']);
+assert.equal(matchingOutings({metDate:'2026-10-10'},[...outings,{id:'c',date:'October 10, 2026',location:'Mall'}]).length,2);
+assert.equal(matchingOutings({metDate:'2026-10-12'},outings).length,0);
+assert.equal(matchingOutings({metDate:''},outings).length,0);
+assert.equal(outingDate('10-10-2026'),'2026-10-10');
+assert.equal(outingDate('02-29-2025'),'');
+assert.equal(outingDate('02-29-2024'),'2024-02-29');
+assert.equal(matchingOutings({metDate:'2026-10-10'},[{...outings[0],deletedAt:'2026-10-10T00:00:00Z'}]).length,0);
+console.log('Outing dates, automatic names, single/multiple/no-match cases passed.');
