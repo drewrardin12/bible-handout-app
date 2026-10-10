@@ -8,5 +8,5 @@ export function EventChoices({value,change}:{value:string;change:(value:string)=
 }
 
 export function OutreachAnswers({value,change}:{value:{gospelShared?:string;decisionMade?:string};change:(key:'gospelShared'|'decisionMade',value:string)=>void}){
- return <>{(['gospelShared','decisionMade'] as const).map(key=><fieldset className="contact-event-choices outreach-answers" key={key}><legend>{key==='gospelShared'?'Gospel shared?':'Decision made?'}</legend><div>{['Yes','No'].map(answer=><button type="button" key={answer} aria-pressed={value[key]===answer} onClick={()=>change(key,value[key]===answer?'':answer)}>{answer}</button>)}</div></fieldset>)}</>;
+ return <div className="outreach-answer-row">{(['gospelShared','decisionMade'] as const).map(key=><fieldset className="contact-event-choices outreach-answers" key={key}><legend>{key==='gospelShared'?'Gospel shared?':'Decision made?'}</legend><div>{['Yes','No'].map(answer=><button type="button" key={answer} aria-pressed={value[key]===answer} onClick={()=>change(key,value[key]===answer?'':answer)}>{answer}</button>)}</div></fieldset>)}</div>;
 }
