@@ -1,0 +1,121 @@
+/* Shared visual language: readable type, restrained depth, and one backdrop per wing. */
+:root { --font-montserrat:'Montserrat Variable',sans-serif; }
+body,.app-shell,.app-shell :is(button,input,textarea,select,h1,h2,h3,b,strong,label,span,small,p,time),.sign-in-screen { font-family:var(--font-montserrat)!important; }
+.app-shell :is(input,textarea,select) { letter-spacing:normal!important; }
+.app-shell button { -webkit-tap-highlight-color:transparent; }
+.app-shell button:focus-visible { outline:2px solid #ae843a; outline-offset:3px; }
+.app-shell .phone.wing-contacts { background:linear-gradient(#f6f3e2d9,#eef1dcc7),url('../public/sandia-sunrise.png') center/cover no-repeat!important; }
+.app-shell .phone.wing-followup { background:linear-gradient(#fff0ddd9,#ffe6c9c9),url('../public/followup-sunset.png') center/cover no-repeat!important; }
+.app-shell .phone.wing-handouts { background:linear-gradient(#e8f0f7d9,#e8f0f7bd),url('../public/handouts-evening.png') center/cover no-repeat!important; }
+.app-shell .phone>.content { background:transparent!important; }
+.app-shell .phone.wing-dashboard { background-color:#faf3e6; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23886836' opacity='.065' filter='url(%23n)' d='M0 0h160v160H0z'/%3E%3C/svg%3E"); }
+.app-shell :is(.attention-list article,.dashboard-verse,.contact-row,.outreach-list article,.metric-grid article,.follow-screen .due-list article,.search,.contact-pills button,.view-handouts) { border-radius:16px; box-shadow:inset 0 1px 0 #ffffff90,0 3px 12px #45321a0a,0 1px 2px #45321a08; }
+.app-shell .live-cards button { padding:15px 8px!important; }
+.app-shell .live-cards b { margin:10px 0!important; font-size:38px; }
+.app-shell .reference-nav { background:#fffaf0e8!important; border-top:1px solid #dfd4be; box-shadow:0 -3px 18px #40351f08; }
+.app-shell .reference-nav button { border:0; border-radius:14px; }
+.app-shell .reference-nav button.active { background:#8d805c12; }
+.app-shell .reference-nav button span { display:none!important; }
+.app-shell .reference-nav button svg { width:26px!important; height:26px!important; }
+.app-shell .follow-screen { padding-top:6px; }
+.app-shell .follow-screen section { margin:0 0 26px; }
+.app-shell .follow-screen h3 { font-size:17px; font-weight:650; margin:0 0 12px; }
+.app-shell .follow-screen section>p { font-size:14px; line-height:1.5; padding:16px; margin:0; border:1px solid #d9bc982e; border-radius:14px; background:#fffaf044; }
+.app-shell .follow-screen .due-list { border:0; }
+.app-shell .follow-screen .due-list article { display:grid; grid-template-columns:40px minmax(0,1fr) 22px; gap:10px; padding:16px; margin-bottom:10px; background:#fff8ee99; }
+.app-shell .follow-screen article>div { min-width:0; }
+.app-shell .follow-screen article b { font-size:15px; }
+.app-shell .follow-screen article small { display:block; font-size:13px; line-height:1.5; margin-top:5px; }
+.app-shell .follow-screen article time { grid-column:2; grid-row:2; font-size:12px; }
+.app-shell .follow-screen article>svg { grid-column:3; grid-row:1/3; width:22px; }
+.app-shell .profile-hero { padding-top:58px; padding-bottom:28px; }
+.app-shell .profile-actions { margin-top:18px; gap:30px; }
+.app-shell .profile-actions button { font-size:12px; gap:8px; }
+.app-shell .profile-hero>.stars svg:not(.fill) { fill:none; }
+.app-shell .profile-panels { padding-top:20px; padding-bottom:16px; }
+.app-shell .profile-panels>button { border-radius:16px; padding:18px 36px 18px 18px; margin-bottom:12px; gap:11px; background:linear-gradient(145deg,#ffffff0e,#ffffff04); box-shadow:inset 0 1px 0 #ffffff0d,0 4px 12px #061d1512; }
+.app-shell .profile-panels>button>b { font-size:16px; font-weight:650; }
+.app-shell .profile-panels>button>span { display:flex; align-items:center; gap:10px; font-size:15px; line-height:1.5; overflow-wrap:anywhere; }
+.app-shell .profile-panels>button>span>svg { width:18px; height:18px; flex-shrink:0; opacity:.8; }
+.app-shell .profile-panels .gold-next { grid-template-columns:36px minmax(0,1fr); grid-template-rows:auto auto; gap:8px 12px; }
+.app-shell .gold-next>b { grid-column:2; grid-row:1; }
+.app-shell .gold-next>span { grid-column:2; grid-row:2; align-items:flex-start!important; }
+.app-shell .gold-next strong { font-size:16px; line-height:1.4; }
+.app-shell .gold-next small { font-size:13px; }
+.app-shell .handouts-screen .outreach-list h3 { font-size:20px; margin-bottom:10px; }
+.app-shell .handouts-screen .outreach-list :is(small,p) { font-size:15px; line-height:1.6; }
+.app-shell .outreach-list article { padding:18px; gap:16px; margin-bottom:16px; }
+.app-shell .outreach-list article>div { min-width:0; flex:1; }
+.app-shell .outreach-list p { display:flex; flex-wrap:wrap; gap:6px 10px; }
+.app-shell :is(.view-handouts,.reports-button) { font-size:17px; min-height:52px; margin-top:12px; }
+.app-shell .metric-grid article { padding:22px; }
+.app-shell .metric-grid article span { font-size:16px; }
+.app-shell .metric-grid article b { font-size:32px; }
+.app-shell .handout-detail>header { display:grid; grid-template-columns:44px minmax(0,1fr) auto; gap:12px; align-items:center; margin-bottom:20px; }
+.app-shell .handout-detail>header h2 { font-size:18px; text-align:center; }
+.app-shell .handout-detail .gold-save { font-size:15px!important; padding:10px 16px; min-height:44px; border-radius:12px; }
+.app-shell .blue-field { display:flex; flex-direction:column; align-items:stretch; gap:8px; padding:14px 16px; letter-spacing:normal; font-weight:600; }
+.app-shell .blue-field :is(input,textarea) { width:100%; text-align:left; font-weight:400; }
+.app-shell .tally-row { gap:8px; padding:14px; border-radius:16px; box-shadow:inset 0 1px 0 #ffffff19,0 4px 12px #0000000a; }
+.app-shell .tally-row span { line-height:1.4; }
+.app-shell .contact-form select,.app-shell .importer select { width:100%; min-height:46px; padding:10px; border:1px solid #d7cebd; border-radius:10px; background:#fffaf2; }
+@media(max-width:420px) { .app-shell .tally-row { grid-template-columns:minmax(0,1fr) 38px 30px 38px; gap:5px; } .app-shell .tally-row button { width:38px; } }
+
+/* Audit corrections: remove inherited fixed heights rather than clipping content. */
+.app-shell :is(h1,h2,.quote-card blockquote,.profile-hero h2,.contact-row h3,.quiet-verse p) { font-family:Georgia,'Times New Roman',serif!important; font-weight:400; }
+.app-shell .follow-screen .due-list { background:transparent; overflow:visible; }
+.app-shell .follow-screen .due-list article { height:auto!important; min-height:100px; align-items:center; }
+.app-shell .follow-screen .due-list article>.avatar { grid-column:1; grid-row:1/3; width:36px; height:36px; }
+.app-shell .follow-screen .due-list article>div:not(.avatar) { grid-column:2; grid-row:1; }
+.app-shell .follow-screen section { margin-bottom:20px; }
+.app-shell .handout-detail .blue-field { height:auto!important; min-height:92px; margin:12px 0; }
+.app-shell .handout-detail .blue-field :is(input,textarea) { flex:none; min-width:0; margin:0; padding:6px 0; line-height:1.5; }
+.app-shell .handout-detail .notes-field textarea { min-height:100px; resize:vertical; }
+.app-shell .handout-detail .detail-tabs { height:auto; margin:20px 0 16px; align-items:center; gap:12px; }
+.app-shell .handout-detail .detail-tabs>* { padding:8px 0; font-size:15px; border:0; }
+.app-shell .handout-detail .blue-details { padding:20px; }
+.app-shell .handout-detail .blue-details label { margin:0 0 8px; font-size:15px; letter-spacing:.04em; }
+.app-shell .handout-detail .blue-details p { padding:0; margin:0 0 22px; font-size:16px; border:0; }
+.app-shell .handout-detail .blue-details p:last-child { margin-bottom:0; }
+.app-shell .event-summary>small,.app-shell .event-summary b small { font-size:15px; }
+.app-shell .handout-detail>header>button { display:grid; place-items:center; min-width:44px; min-height:44px; }
+.app-shell .profile-edit { right:18px; }
+.app-shell .profile-edit svg { width:22px; height:22px; }
+.app-shell>.reference-nav { position:fixed; z-index:200; inset:auto 0 0; display:grid; grid-template-columns:repeat(4,1fr); padding:8px max(12px,calc((100% - 720px)/2)) calc(8px + env(safe-area-inset-bottom)); height:auto; min-height:66px; }
+.app-shell>.reference-nav button { display:flex; align-items:center; justify-content:center; min-height:44px; color:#6d7266; background:transparent; }
+.app-shell>.reference-nav button.active { color:#315f39; background:#8d805c12; }
+.app-shell>.phone { padding-bottom:calc(70px + env(safe-area-inset-bottom)); }
+.app-shell .overlay { bottom:calc(66px + env(safe-area-inset-bottom)); height:auto; }
+.app-shell .overlay>:is(.sheet,.handout-detail,.report-detail,.follow-plan,.dashboard-group-screen,.message-composer) { height:100%; max-height:100%; }
+.app-shell .quiet-verse { margin:30px auto 12px; padding:8px 16px; text-align:center; opacity:.72; max-width:560px; }
+.app-shell .quiet-verse p { font-style:italic; font-size:16px; line-height:1.5; margin:0 0 6px; }
+.app-shell .quiet-verse small { font-size:11px; }
+.app-shell .reports-link { width:100%; display:flex; align-items:center; justify-content:center; gap:10px; min-height:48px; margin:14px 0; border:1px solid #a4bfd055; border-radius:14px; background:#eaf3ff66; color:#174f80; font-size:17px; font-weight:600; }
+.app-shell .reports-link svg { width:22px; height:22px; }
+.app-shell .report-period { display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+.app-shell .report-period select { padding:12px; border:1px solid #ad98b6; border-radius:12px; background:#faf3ff; }
+.app-shell .settings-sheet { padding:30px!important; }
+.app-shell .settings-sheet button { display:block; margin:20px 0; padding:12px 18px; border:1px solid #d5c6a9; border-radius:12px; }
+.app-shell .template-editor { padding-top:24px; }
+.app-shell .template-editor p { line-height:1.5; font-size:14px; }
+.app-shell .template-editor textarea { height:240px; margin:16px 0; }
+.app-shell>.reference-nav { border-radius:0; }
+.app-shell>.reference-nav button>svg { padding:0; margin:0; border-radius:0; color:inherit; background:transparent; box-shadow:none; flex-shrink:0; }
+.app-shell .importer .field { display:flex; flex-direction:column; gap:8px; margin:18px 0; font-size:12px; letter-spacing:.06em; }
+.app-shell .importer .field :is(input,select,textarea) { display:block; width:100%; margin:0; padding:12px 14px; min-height:48px; font-size:16px; font-weight:400; letter-spacing:normal; line-height:1.5; border:1px solid #d7cebd; border-radius:12px; background:#fffaf5; color:#40392f; }
+.app-shell .importer .import-notes textarea { height:auto; min-height:128px; resize:vertical; }
+.app-shell .importer .x { display:grid; place-items:center; width:44px; height:44px; padding:0; background:transparent; border:0; border-radius:10px; color:#596454; }
+.app-shell .importer .x svg { width:22px; height:22px; }
+.app-shell .import-interest { padding:0; border:0; margin:24px 0; }
+.app-shell .import-interest legend { font-size:12px; font-weight:600; margin-bottom:10px; color:#887668; }
+.app-shell .import-interest>div { display:flex; align-items:center; gap:8px; }
+.app-shell .import-interest button { display:grid; place-items:center; width:44px; height:44px; padding:8px; border:0; border-radius:10px; background:transparent; color:#a99b80; }
+.app-shell .import-interest svg { width:28px; height:28px; }
+.app-shell .import-interest .fill { fill:#ad852e; color:#ad852e; }
+.app-shell .import-interest span { font-size:14px; margin-left:8px; }
+.app-shell .metric-grid { align-items:stretch; gap:12px; }
+.app-shell .metric-grid article { display:flex; flex-direction:column; justify-content:space-between; gap:16px; height:auto; min-height:140px; padding:20px; }
+.app-shell .metric-grid article span { line-height:1.4; min-height:2.8em; }
+.app-shell .metric-grid article b { display:block; margin:0; line-height:1.1; }
+.app-shell .report-period { margin:8px 0 24px; font-size:12px; letter-spacing:.06em; }
+.app-shell .report-period select { min-height:48px; font-size:16px; font-weight:500; letter-spacing:normal; }

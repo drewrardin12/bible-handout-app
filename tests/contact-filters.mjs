@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import ts from 'typescript';
+const compile=path=>ts.transpileModule(readFileSync(new URL(path,import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext}}).outputText;
+const url=code=>'data:text/javascript;base64,'+Buffer.from(code).toString('base64');
+const dates=url(compile('../app/dashboard-data.ts'));
+const {filterContacts}=await import(url(compile('../app/contact-filters.ts').replace('./dashboard-data',dates)));
+const records=[{name:'B',phone:'5552',address:'North',rating:3,status:'New',date:'2026-10-09',followUpDate:'2026-10-08'},{name:'A',phone:'5551',address:'South',rating:1,status:'Attended',date:'2026-09-01'}];
+const opts={query:'',filter:'All',stars:'all',sort:'name',today:'2026-10-09'};
+assert.deepEqual(filterContacts(records,opts).map(p=>p.name),['A','B']);
+for(const override of [{stars:'3'},{filter:'New'},{filter:'Needs Follow-Up'},{query:'north'},{query:'5552'}])assert.deepEqual(filterContacts(records,{...opts,...override}).map(p=>p.name),['B']);
+assert.equal(filterContacts(records,{...opts,filter:'Attended'})[0].name,'A');
+assert.equal(records[0].name,'B','sorting must not mutate original records');
+console.log('Contact search, stars, status filters, sorting and nonmutation passed.');

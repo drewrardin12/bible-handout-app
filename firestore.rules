@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Membership is managed in the Firebase console, never by public app code.
+    function member() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && exists(/databases/$(database)/documents/members/$(request.auth.uid));
+    }
+    match /members/{uid} {
+      allow get: if request.auth != null && request.auth.uid == uid;
+      allow list, write: if false;
+    }
+    match /ministries/abm/settings/templates {
+      allow read: if member();
+      allow create, update: if member()
+        && request.resource.data.keys().hasOnly(['items','revision','updatedBy','updatedAt'])
+        && request.resource.data.items is map
+        && request.resource.data.items.size() <= 20
+        && request.resource.data.revision is int
+        && request.resource.data.revision == (resource == null ? 1 : resource.data.revision + 1)
+        && request.resource.data.updatedBy == request.auth.uid
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if false;
+    }
+    match /ministries/abm/records/{id} {
+      allow read: if member();
+      function valid() {
+        let d = request.resource.data;
+        return d.keys().hasOnly(['kind','data','revision','updatedBy','updatedAt'])
+          && d.kind in ['contact','outing']
+          && d.data is map
+          && d.data.name is string && d.data.name.size() > 0
+          && d.revision is int
+          && (d.kind != 'outing' || (
+            d.data.bibles is int && d.data.bibles >= 0
+            && d.data.contactCards is int && d.data.contactCards >= 0
+            && d.data.gospels is int && d.data.gospels >= 0
+            && d.data.salvations is int && d.data.salvations >= 0
+            && d.data.promises is int && d.data.promises >= 0))
+          && d.updatedBy == request.auth.uid
+          && d.updatedAt == request.time;
+      }
+      allow create: if member() && valid() && request.resource.data.revision == 1;
+      allow update: if member() && valid()
+        && request.resource.data.kind == resource.data.kind
+        && request.resource.data.revision == resource.data.revision + 1;
+      allow delete: if false;
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}

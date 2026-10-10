@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import ts from 'typescript';
+const code=ts.transpileModule(readFileSync('app/report-periods.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext}}).outputText;
+const {inPeriod}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
+const now=new Date(2026,9,9);
+assert(inPeriod('2026-07-01','Last Quarter',now));
+assert(inPeriod('Sep 30, 2026','Last Quarter',now));
+assert(!inPeriod('2026-10-01','Last Quarter',now));
+assert(!inPeriod('2026-06-30','Last Quarter',now));
+assert(inPeriod('2026-10-09','Current Month',now));
+assert(!inPeriod('2026-10-10','Current Month',now));
+assert(inPeriod('2026-01-01','YTD',now));
+assert(!inPeriod('2025-12-31','YTD',now));
+assert(inPeriod('2025-10-01','Last Quarter',new Date(2026,0,5)));
+assert(!inPeriod('bad date','YTD',now));
+console.log('Reporting periods passed, including quarter/year boundaries and legacy date formats.');

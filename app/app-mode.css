@@ -1,0 +1,198 @@
+/* The working app fills its window. Device hardware belongs to the device. */
+html { -webkit-text-size-adjust: 100%; }
+.profile-log-actions { display:grid; gap:10px; padding:16px 20px 32px; }
+.profile-log-actions button { display:flex; align-items:center; justify-content:center; gap:10px; min-height:48px; padding:12px; border:1px solid #c4a55d; border-radius:12px; background:#ead9b1; color:#233c2e; font-size:16px; font-weight:600; }
+.profile-log-actions svg { width:20px; height:20px; }
+:root { --font-montserrat: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; --font-geist-mono: ui-monospace, monospace; }
+.sign-in-screen { max-width:440px; margin:12vh auto; padding:32px 24px; color:#49341f; }
+.sign-in-screen h1 { font:32px/1.15 Georgia,serif; margin-bottom:20px; letter-spacing:-.7px; }
+.sign-in-screen p { font:16px/1.55 -apple-system,BlinkMacSystemFont,sans-serif; margin:18px 0; }
+.sign-in-screen button { min-height:50px; width:100%; padding:12px 18px; border-radius:14px; color:#fff; background:#344d3d; border:1px solid #293f31; font-weight:600; box-shadow:0 4px 12px #344d3d20; }
+.sign-in-screen [role="alert"] { color:#903b27; }
+.contact-filter-controls { display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:12px 0; }
+.contact-filter-controls label { display:grid; gap:6px; font-size:13px; }
+.contact-filter-controls select { width:100%; min-height:44px; border:1px solid #b7b9ab; border-radius:10px; background:#fbf5e8; color:#283e30; }
+.app-shell .contact-pills button { min-height:44px; padding:8px 10px; border:0; }
+.app-shell .contact-pills button[aria-pressed="true"] { background:#344d3d; color:white; }
+body { -webkit-font-smoothing: antialiased; }
+button, input, textarea, select { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid #ac802d; outline-offset: 3px; }
+.app-shell button { transition: transform 140ms ease, background-color 140ms ease; }
+.app-shell button:active:not(:disabled) { transform: scale(.97); }
+.app-shell input, .app-shell textarea, .app-shell select { font-size: 16px; }
+.app-shell .phone.wing-handouts { background-image: linear-gradient(rgba(232,240,247,.91),rgba(232,240,247,.87)),url('../public/handouts-evening.png'); background-position:center; background-size:cover; }
+.app-shell .overlay .handout-detail { background-image:linear-gradient(rgba(15,43,68,.86),rgba(15,43,68,.91)),url('../public/handouts-evening.png'); background-size:cover; background-position:center; }
+.app-shell .tally-row { grid-template-columns:1fr 44px 40px 44px; border-radius:16px; padding:12px; }
+.app-shell .tally-row button { width:44px; height:44px; border-radius:12px; }
+.app-shell .tally-row span { font-size:14px; }
+.app-shell .reference-nav { backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
+@media (prefers-reduced-motion: reduce) { .app-shell button { transition:none; } .app-shell button:active:not(:disabled) { transform:none; } }
+html, body { min-height: 100%; background: #fbf5e8; }
+.app-shell {
+  display: block;
+  min-height: 100dvh;
+  padding: 0;
+  background: var(--paper);
+}
+.app-shell > .phone {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background-size: auto, cover;
+}
+.app-shell > .phone::after,
+.app-shell > .phone > header::after,
+.app-shell .overlay > :is(.sheet, .follow-plan, .handout-detail, .report-detail, .dashboard-group-screen, .message-composer)::after {
+  content: none;
+  display: none;
+}
+.app-shell > .phone > header {
+  flex: 0 0 auto;
+  height: auto !important;
+  min-height: 80px;
+  padding: calc(20px + env(safe-area-inset-top, 0px)) max(20px, calc((100% - 680px) / 2)) 14px !important;
+}
+.app-shell > .phone > header h1 { font-size: clamp(25px, 4vw, 32px) !important; }
+.app-shell > .phone > header button { min-width: 44px; min-height: 44px; }
+.app-shell > .phone > .content {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 720px;
+  min-height: 0;
+  height: auto;
+  margin: 0 auto;
+  padding: 12px 20px 32px !important;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
+}
+.app-shell > .phone > .reference-nav {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  height: auto;
+  min-height: 76px;
+  border-radius: 0;
+  padding: 12px max(8px, calc((100% - 720px) / 2)) calc(12px + env(safe-area-inset-bottom, 0px));
+}
+.app-shell .reference-nav button { min-height: 44px; justify-content: center; font-size: 11px; }
+.app-shell .reference-nav svg { width: 23px; height: 23px; }
+.app-shell .reference-nav button:nth-child(3) span { display: block; margin-top: 0; }
+.app-shell .phone .reference-nav button:nth-child(3) svg { width:23px; height:23px; padding:0; margin:0; border-radius:0; color:inherit; background:transparent; box-shadow:none; }
+.app-shell .dashboard-sub { font-size: 14px; line-height: 1.5; }
+.app-shell .attention-summary { height: auto; aspect-ratio: 648 / 540; }
+.app-shell .ministry-cards { height: auto; aspect-ratio: 2 / 1; margin: 14px 0 18px; }
+.app-shell .quote-card { padding: 24px; }
+.app-shell .quote-card > span, .app-shell .quote-card > b { font-size: 12px; }
+.app-shell .quote-card blockquote { font-size: clamp(20px, 4vw, 26px); line-height: 1.45; }
+.app-shell .attention-heading { gap: 12px; margin-top: 28px; }
+.app-shell .attention-heading label, .app-shell .attention-heading button { font-size: 12px; }
+.app-shell .attention-heading h2 { font-size: 26px; }
+.app-shell .attention-person { display: flex; flex-direction: column; gap: 3px; }
+.app-shell .attention-person b { font-size: 16px; white-space: normal; }
+.app-shell .attention-person span { font-size: 13px; max-width: none; align-self: auto; text-align: left; }
+.app-shell .attention-person small { font-size: 12px; margin-top: 2px; }
+.app-shell .attention-list article { min-height: 112px; height: auto; padding: 16px 12px; }
+.app-shell .message-shortcut { min-width: 44px; min-height: 44px; }
+.app-shell .dashboard-verse p { font-size: 20px; }
+.app-shell .dashboard-verse b { font-size: 12px; }
+
+/* Detail screens follow the same edge-to-edge surface and safe-area spacing. */
+.app-shell .overlay { align-items: stretch; background: var(--paper); }
+.app-shell .overlay > :is(.sheet, .follow-plan, .handout-detail, .report-detail, .dashboard-group-screen, .message-composer) {
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow-y: auto;
+}
+.app-shell .overlay > :is(.follow-plan, .handout-detail, .report-detail, .dashboard-group-screen, .message-composer, .importer) {
+  padding: calc(16px + env(safe-area-inset-top, 0px)) max(20px, calc((100% - 680px) / 2)) calc(96px + env(safe-area-inset-bottom, 0px));
+}
+.app-shell .overlay > .contact-suite { padding: 0 0 calc(76px + env(safe-area-inset-bottom, 0px)); }
+.app-shell .contact-subhead {
+  height: auto;
+  min-height: 76px;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) max(16px, calc((100% - 680px) / 2)) 12px;
+}
+.app-shell .contact-subhead h2 { font-size: 22px; white-space: normal; }
+.app-shell .contact-subhead > button { min-height: 44px; font-size: 14px; }
+.app-shell .profile-hero { height: auto; min-height: 323px; padding-top: calc(40px + env(safe-area-inset-top, 0px)); padding-bottom: 16px; }
+.app-shell :is(.profile-back, .profile-edit, .profile-more) { top: calc(12px + env(safe-area-inset-top, 0px)); min-height: 44px; }
+.app-shell .profile-edit { font-size: 14px; }
+.app-shell .profile-panels { min-height: 0; }
+.app-shell :is(.profile-panels, .contact-form, .contact-message, .interaction-form, .template-list, .follow-status, .ministry-timeline, .history-verse) {
+  padding-left: max(16px, calc((100% - 680px) / 2));
+  padding-right: max(16px, calc((100% - 680px) / 2));
+}
+.app-shell .overlay :is(.profile-nav, footer) {
+  position: fixed;
+  inset: auto 0 0;
+  height: auto;
+  min-height: 66px;
+  border-radius: 0;
+  padding: 10px max(16px, calc((100% - 680px) / 2)) calc(10px + env(safe-area-inset-bottom, 0px));
+}
+.app-shell input, .app-shell textarea, .app-shell select { font-size: 16px !important; }
+.app-shell .contact-search { min-height: 48px; }
+.app-shell .contact-row { min-height: 76px; height: auto !important; padding: 14px 8px !important; }
+.app-shell .contact-row h3 { font-size: 16px !important; }
+.app-shell .contact-row p { font-size: 13px !important; }
+.app-shell .contact-row > .stars svg { width: 14px; height: 14px; }
+.app-shell .contact-pills > *, .app-shell .active-filter, .app-shell .active-filter button { font-size: 12px !important; }
+.app-shell .contact-pills > * { padding: 10px !important; }
+.app-shell .outreach-list h3 { font-size: 16px; }
+.app-shell .outreach-list :is(small, p) { font-size: 12px; }
+.app-shell .outreach-list article { min-height: 96px; height: auto; padding-block: 8px; }
+.app-shell .tally-row { grid-template-columns: 1fr 44px 44px 44px; }
+.app-shell .tally-row span { font-size: 14px; }
+.app-shell .tally-row button { width: 44px; height: 44px; }
+.app-shell .tally-row b { font-size: 24px; }
+.app-shell .blue-field { font-size: 14px; }
+.app-shell .profile-panels > button > span { font-size: 14px; }
+.app-shell .contact-form label { grid-template-columns: 105px 1fr; gap: 8px; min-height: 48px; font-size: 14px; }
+.app-shell .contact-form h3, .app-shell .contact-message h3, .app-shell .interaction-form > label { font-size: 14px; }
+.app-shell .contact-form textarea, .app-shell .interaction-form textarea { min-height: 100px; }
+.app-shell .contact-message textarea { height: 300px; }
+@media (max-width: 380px) {
+  .app-shell > .phone > .content { padding-inline: 12px !important; }
+  .app-shell .attention-list article { gap: 8px; }
+  .app-shell .reminder-mark { width: 16px; flex-basis: 16px; }
+  .app-shell .attention-list .avatar { width: 32px; height: 32px; flex-basis: 32px; }
+}
+.app-shell .ministry-cards.live-cards { height:auto; aspect-ratio:auto; gap:12px; background:none; }
+.app-shell .live-cards button { --category-accent:#548e91; position:relative; min-width:0; height:auto; aspect-ratio:auto; padding:clamp(18px,3vw,28px) 8px 20px; gap:0; border:1px solid #e9dcc5!important; border-radius:20px; background:linear-gradient(155deg,#fffaf0,#f7efdf)!important; box-shadow:0 2px 5px #5b402508,inset 0 1px 0 #ffffff!important; }
+.app-shell .live-cards .category-promised { --category-accent:#af522e; }
+.app-shell .live-cards .category-overdue { --category-accent:#777b47; }
+.app-shell .live-cards button>* { visibility:visible; }
+.app-shell .live-cards .category-icon { display:grid; place-items:center; height:clamp(48px,9vw,72px); margin-bottom:14px; }
+.app-shell .live-cards .category-icon svg { width:clamp(42px,8vw,64px); height:clamp(42px,8vw,64px); margin:0; color:var(--category-accent); }
+.app-shell .live-cards .live-card-label { position:static; width:auto; height:auto; overflow:visible; clip-path:none; font:600 clamp(14px,2.5vw,19px)/1.35 var(--font-montserrat),Arial,sans-serif; letter-spacing:-.025em; color:#403529; }
+.app-shell .live-cards b { position:static; width:auto; height:auto; display:block; font:normal clamp(40px,7vw,62px)/1.1 Georgia,serif; font-variant-numeric:lining-nums tabular-nums; color:#4b301f; margin:16px 0 18px; background:none; box-shadow:none; border-radius:0; }
+.app-shell .live-cards .card-dot { display:block; width:8px; height:8px; border-radius:50%; background:var(--category-accent); }
+.app-shell .live-cards .dot-1 { background:#ba5128; }
+.app-shell .live-cards .dot-2 { background:#7b8148; }
+.app-shell .live-cards button:focus-visible,.app-shell .live-summary:focus-visible { outline:3px solid #946823; outline-offset:4px; }
+.app-shell .live-cards button:active { transform:translateY(1px); }
+.app-shell .live-summary .live-field-copy { visibility:visible; position:absolute; top:4%; left:4%; width:55%; height:45%; padding:2% 2%; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; background:#fbeaca; background-image:url('../public/field-today-card.png'); background-size:400% 500%; background-position:67% 8%; border-radius:12px; box-shadow:0 0 12px 5px #f7e4c2; }
+.app-shell .live-field-copy label { font:600 clamp(13px,2.8vw,22px)/1.3 Arial,sans-serif; letter-spacing:.02em; color:#9e411e; }
+.app-shell .live-field-copy b { font:normal clamp(60px,14vw,120px)/1 Georgia,serif; margin:8px 0 0; color:#4b2716; }
+.app-shell .live-field-copy span { font:400 clamp(15px,3.6vw,27px)/1.2 Arial,sans-serif; margin:0; color:#39352c; }
+.dashboard-empty { padding:24px 16px; color:#756349; font-size:16px; line-height:1.6; }
+.storage-notice { padding: 14px 16px; margin: 12px 0; border: 1px solid #ad7841; border-radius: 12px; background: #fff2d9; color: #55381f; font-size: 14px; line-height: 1.5; }
+.storage-notice button { text-decoration: underline; font-weight: 700; margin-left: 8px; }
+button:disabled { opacity: .5; cursor: wait; }
