@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {contactFields,assembledContact} from '../app/contact-data.ts';
+const legacy=contactFields({name:'Mrs. Mary Ann Smith',address:'123 Main St, Chicago, IL'});
+assert.equal(legacy.title,'Mrs.');
+assert.equal(legacy.firstName,'Mary');
+assert.equal(legacy.lastName,'Ann Smith');
+assert.equal(legacy.street,'123 Main St, Chicago, IL');
+assert.equal(assembledContact(legacy).address,'123 Main St, Chicago, IL');
+const structured={title:'Mr.',firstName:' John ',lastName:' Smith ',street:'123 Main St',city:'Chicago',state:'IL'};
+const saved=assembledContact(structured);
+assert.equal(saved.name,'John Smith');
+assert.equal(saved.initials,'JS');
+assert.equal(saved.address,'123 Main St, Chicago, IL');
+assert.deepEqual(contactFields(saved),{...structured,firstName:'John',lastName:'Smith'});
+assert.equal(assembledContact({...structured,lastName:'',city:'',state:''}).name,'John');
+console.log('Contact fields passed: legacy details preserved; structured names and map address round-trip correctly.');

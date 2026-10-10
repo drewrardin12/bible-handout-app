@@ -142,3 +142,13 @@ body,.app-shell,.app-shell :is(button,input,textarea,select,h1,h2,h3,b,strong,la
 @keyframes wing-arrive { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 @keyframes page-arrive { from { opacity:0; transform:translateX(18px); } to { opacity:1; transform:translateX(0); } }
 @media(prefers-reduced-motion:reduce) { .app-shell *, .app-shell *::before, .app-shell *::after { animation:none!important; transition:none!important; } .app-shell button:active:not(:disabled) { transform:none; } }
+.app-shell .name-address-fields .field { display:flex; flex-direction:column; gap:8px; margin:18px 0; }
+.app-shell .name-address-fields .field :is(input,select) { box-sizing:border-box; width:100%; min-width:0; min-height:48px; margin:0; padding:12px 14px; border:1px solid #d7cebd; border-radius:12px; font-size:16px; font-weight:400; letter-spacing:normal; }
+.app-shell .contact-field-pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.app-shell .contact-event-choices { border:0; margin:24px 0; padding:0; min-width:0; }
+.app-shell .contact-event-choices legend { margin-bottom:12px; font-size:16px; font-weight:600; letter-spacing:normal; }
+.app-shell .contact-event-choices>div { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.app-shell .contact-event-choices button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; min-height:96px; width:100%; margin:0; padding:14px 6px; border:1px solid #a49c8b; border-radius:14px; background:transparent; color:inherit; font-size:14px; line-height:1.35; }
+.app-shell .contact-event-choices button svg { width:28px; height:28px; }
+.app-shell .contact-event-choices button[aria-pressed=true] { background:#315f3b; border-color:#315f3b; color:#fffaf2; box-shadow:0 0 0 2px #b08b3333; }
+.app-shell .contact-event-choices small { display:block; margin-top:10px; font-size:14px; }
