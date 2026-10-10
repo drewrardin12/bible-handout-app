@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {activeContacts} from '../app/contact-trash-data.ts';
+import {dashboardGroups} from '../app/dashboard-data.ts';
+const p={id:'synthetic',name:'Test Contact',phone:'5551234567',address:'123 Test St',rating:3,status:'Promised',date:'2026-10-10',followUpDate:'2026-10-09',promiseDate:'2026-10-11',history:['Original history'],notes:'Keep notes',outingId:'test-outing'};
+const deleted={...p,deletedAt:'2026-10-10T15:00:00Z'};
+const active=activeContacts([deleted]);
+assert.equal(active.length,0);
+assert.equal(dashboardGroups(active,'2026-10-10').promised.length,0);
+assert.equal(dashboardGroups(active,'2026-10-10').overdue.length,0);
+const restored={...deleted,deletedAt:''};
+assert.equal(activeContacts([restored]).length,1);
+assert.deepEqual(restored.history,p.history);
+assert.equal(restored.notes,p.notes);
+assert.equal(restored.outingId,p.outingId);
+assert.equal(dashboardGroups(activeContacts([restored]),'2026-10-10').promised.length,1);
+assert.equal(deleted.deletedAt,'2026-10-10T15:00:00Z');
+console.log('Trash passed: hidden from active views, restorable with notes, history and handout intact.');

@@ -181,3 +181,16 @@ body,.app-shell,.app-shell :is(button,input,textarea,select,h1,h2,h3,b,strong,la
 .app-shell .contact-history .ministry-timeline i svg { width:24px; height:24px; }
 .app-shell .contact-history .ministry-timeline article:not(:last-child)::before { left:23px; top:48px; }
 .app-shell .contact-history .contact-subhead h2 { font-size:26px; }
+.app-shell .contact-form .delete-contact { width:100%; min-height:48px; margin-top:28px; border:1px solid #b83f3d; border-radius:12px; background:transparent; color:#b83f3d; font-size:17px; font-weight:600; }
+.app-shell .trash-hint { margin:10px 0; text-align:center; font-size:14px; line-height:1.5; }
+.app-shell .contact-trash { padding:24px 20px 100px; background:#fbf5e8; color:#40392f; }
+.app-shell .contact-trash header { display:flex; align-items:center; gap:16px; margin-bottom:20px; }
+.app-shell .contact-trash header button { display:grid; place-items:center; width:44px; height:44px; border:0; background:transparent; }
+.app-shell .contact-trash h2 { margin:0; font-size:28px; }
+.app-shell .contact-trash>p { font-size:16px; line-height:1.6; }
+.app-shell .contact-trash article { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:18px 0; border-bottom:1px solid #d7cebd; }
+.app-shell .contact-trash article>div { display:flex; flex-direction:column; gap:8px; min-width:0; overflow-wrap:anywhere; }
+.app-shell .contact-trash b { font-size:18px; }
+.app-shell .contact-trash small { font-size:14px; }
+.app-shell .contact-trash article button { display:flex; align-items:center; gap:8px; min-height:48px; padding:12px; border:0; border-radius:10px; background:#315f3b; color:#fff; font-size:16px; }
+.app-shell .contact-trash article svg { width:18px; height:18px; }
