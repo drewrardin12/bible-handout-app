@@ -8,6 +8,8 @@ assert.equal(legacy.street,'123 Main St, Chicago, IL');
 assert.equal(assembledContact(legacy).address,'123 Main St, Chicago, IL');
 const structured={title:'Mr.',firstName:' John ',lastName:' Smith ',street:'123 Main St',city:'Chicago',state:'IL'};
 const saved=assembledContact(structured);
+assert.deepEqual(assembledContact({...structured,age:12,rating:3,history:['Added'],attendanceChecked:false}),saved);
+assert.equal('age' in saved,false);
 assert.equal(saved.name,'John Smith');
 assert.equal(saved.initials,'JS');
 assert.equal(saved.address,'123 Main St, Chicago, IL');

@@ -7,6 +7,6 @@ export function contactFields(p:{name:string;address:string;title?:string;firstN
  return {title:p.title??legacyTitle??'',firstName:p.firstName??parts.shift()??'',lastName:p.lastName??parts.join(' '),street:p.street??p.address,city:p.city??'',state:p.state??''};
 }
 export function assembledContact(f:ContactFields){
- const fields=Object.fromEntries(Object.entries(f).map(([k,v])=>[k,v.trim()])) as ContactFields;
+ const fields=Object.fromEntries((['title','firstName','lastName','street','city','state'] as const).map(k=>[k,f[k].trim()])) as ContactFields;
  return {...fields,name:[fields.firstName,fields.lastName].filter(Boolean).join(' '),initials:[fields.firstName[0],fields.lastName[0]].filter(Boolean).join('').toUpperCase(),address:[fields.street,[fields.city,fields.state].filter(Boolean).join(', ')].filter(Boolean).join(', ')};
 }

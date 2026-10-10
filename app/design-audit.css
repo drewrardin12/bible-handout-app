@@ -156,3 +156,16 @@ body,.app-shell,.app-shell :is(button,input,textarea,select,h1,h2,h3,b,strong,la
 .app-shell .profile-welcome-action .profile-welcome-button { display:flex; align-items:center; justify-content:center; gap:12px; width:100%; min-height:56px; margin:0; padding:16px 20px; border:0; border-radius:14px; background:linear-gradient(135deg,#b28c34,#8e6d25); color:#fffaf2; font-size:18px; font-weight:600; line-height:1.4; }
 .app-shell .profile-welcome-button svg { width:24px; height:24px; flex-shrink:0; }
 .app-shell .profile-welcome-action>small { display:block; margin-top:10px; font-size:14px; opacity:.8; }
+.app-shell .contact-message .message-choice { flex-wrap:wrap; gap:12px; align-items:center; }
+.app-shell .contact-message .edit-templates-button { display:flex; align-items:center; justify-content:center; gap:8px; min-height:48px; padding:12px 18px; border:1px solid #315f3b; border-radius:12px; background:#315f3b; color:#fffaf2; font-size:17px; font-weight:600; }
+.app-shell .edit-templates-button svg { width:20px; height:20px; }
+.app-shell .contact-promise { width:min(100%,360px); margin:24px auto 0; padding:0 16px; text-align:center; }
+.app-shell .contact-promise .promise-button { width:100%; min-height:48px; border:1px solid #b83f3d; border-radius:12px; background:#b83f3d; color:#fff; font-size:17px; font-weight:600; letter-spacing:.05em; }
+.app-shell .contact-promise .promise-button[aria-pressed=true] { background:#8d2928; border-color:#f0a5a2; }
+.app-shell .contact-promise>small { display:block; margin-top:8px; color:#fffaf2; font-size:14px; }
+.app-shell .promise-date-form { margin-top:14px; padding:16px; border-radius:14px; background:#fffaf2; color:#40392f; text-align:left; }
+.app-shell .promise-date-form label { display:flex; flex-direction:column; gap:10px; font-size:16px; }
+.app-shell .promise-date-form input { width:100%; min-height:48px; padding:10px; border:1px solid #c8beaa; border-radius:10px; font-size:16px; color:#40392f; background:#fff; }
+.app-shell .promise-date-form>div { display:flex; gap:10px; margin-top:12px; }
+.app-shell .promise-date-form button { min-height:44px; padding:10px 14px; border-radius:10px; background:#b83f3d; color:#fff; font-size:15px; }
+.app-shell .promise-date-form button+button { background:#ece4d5; color:#40392f; }
