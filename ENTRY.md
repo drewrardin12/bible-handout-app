@@ -10,7 +10,7 @@ Outing labels use **Location — MM-DD-YYYY**. Existing IDs and contact links re
 
 Server importers in `functions/` were implemented and emulator-tested, but they are not deployed: Firebase requires a billing upgrade for them, and the user chose to stay on the free plan. They are not necessary for the free-plan workflow.
 
-Production entry permissions are awaiting explicit approval. Anonymous devices can create immutable entry cards and retry identical submissions, but cannot read ministry records or edit submitted cards. Approved members retain private record access. Rule deployment was blocked by automatic approval review; no workaround was attempted.
+Production entry permissions were explicitly approved and deployed. Anonymous devices can create immutable entry cards and retry identical submissions, but cannot read ministry records or edit submitted cards. Approved members retain private record access.
 
 Delete handout moves an outing to Handout Trash, with confirmation. It is excluded from reports and automatic matching; its totals and linked contacts are preserved, and it can be restored. All displayed dates and date inputs use MM-DD-YYYY, while stored date keys remain compatible with existing records.
 
@@ -20,4 +20,7 @@ TypeScript, production build, date/name matching, anonymous submission/retry pri
 
 ## Publishing
 
-After production permissions are approved, deploy only Firestore rules (`firebase deploy --only firestore:rules --project bible-handout-follow-up-abm`) and run the GitHub Pages workflow. The app build generates the service worker cache from its actual assets. Do not deploy Cloud Functions or enable billing for the chosen free-plan workflow.
+Deploy only Firestore rules (`firebase deploy --only firestore:rules --project bible-handout-follow-up-abm`) and run the GitHub Pages workflow. The app build generates the service worker cache from its actual assets. Do not deploy Cloud Functions or enable billing for the chosen free-plan workflow.
+
+
+Entry uses a charcoal and burnt-orange theme with a responsive form/cards layout. Save & Next clears prospect details while retaining the current date, location, and event type. Sync Cards triggers the same safe upload flow as automatic syncing, and Saved Cards counts retained local copies.
