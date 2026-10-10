@@ -3,3 +3,5 @@ body:has(.entry-screen){background:#101313;color:#f4eee5;color-scheme:dark}.entr
 .entry-brand{width:min(390px,55%)}.entry-brand>img{display:block;width:100%;height:auto}.entry-brand h1{margin-top:0}@media(max-width:480px){.entry-brand{width:62%;flex-shrink:0}.entry-banner{gap:12px}.entry-brand h1{font-size:14px;letter-spacing:7px}}
 
 .entry-saved-panel article button,.entry-form-panel>button{padding:12px 20px;border:1px solid #77614e;border-radius:10px;background:#292e2c;color:#f4eee5;min-height:48px}
+
+.entry-settings{position:absolute;right:12px;top:12px;z-index:2;display:grid;place-items:center;min-width:44px;min-height:44px;border:1px solid #78624f;border-radius:10px;background:#202423;color:#ebc2a5}.entry-screen .settings-sheet{background:#202423;color:#f4eee5;padding:24px}
