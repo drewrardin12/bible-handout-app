@@ -196,3 +196,5 @@ body,.app-shell,.app-shell :is(button,input,textarea,select,h1,h2,h3,b,strong,la
 .app-shell .contact-trash article svg { width:18px; height:18px; }
 
 .handout-detail .delete-handout{display:flex;align-items:center;justify-content:center;gap:10px;width:calc(100% - 40px);min-height:50px;margin:24px 20px;border:1px solid #a42c29;border-radius:12px;background:#b83f3d;color:#fff;font-size:17px;font-weight:600;cursor:pointer}.handout-detail .delete-handout:hover{background:#a42c29}.handout-detail .delete-handout:disabled{opacity:.6;cursor:wait}.handout-detail .delete-handout:focus-visible{outline:3px solid #e5a199;outline-offset:3px}
+
+.handout-detail .handout-bottom-save{display:flex;align-items:center;justify-content:center;gap:10px;width:calc(100% - 40px);min-height:52px;margin:24px 20px;border:1px solid #326653;border-radius:12px;background:#397a66;color:#fff;font-size:17px;font-weight:600;cursor:pointer}.handout-detail .handout-bottom-save:disabled{opacity:.6;cursor:wait}
