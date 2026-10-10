@@ -16,6 +16,8 @@ try{
  await assertFails(setDoc(doc(anonymous,path),{card:{...card,name:'Changed'}},{merge:true}));
  await assertFails(updateDoc(doc(anonymous,path),{processed:true}));
  await assertFails(setDoc(doc(anonymous,'ministries/other/entryInbox/synthetic'),{card}));
+ await assertSucceeds(setDoc(doc(anonymous,'ministries/abm/entryInbox/unrated'),{card:{...card,rating:0}}));
+ await assertFails(setDoc(doc(anonymous,'ministries/abm/entryInbox/negative'),{card:{...card,rating:-1}}));
  await assertFails(setDoc(doc(anonymous,'ministries/abm/entryInbox/bad'),{card:{...card,rating:4}}));
  await assertSucceeds(getDoc(doc(member,path)));
  await assertSucceeds(updateDoc(doc(member,path),{processed:true}));
