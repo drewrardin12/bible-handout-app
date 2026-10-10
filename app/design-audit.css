@@ -1,5 +1,10 @@
 /* Shared visual language: readable type, restrained depth, and one backdrop per wing. */
 :root { --font-montserrat:'Montserrat Variable',sans-serif; }
+.email-sign-in label { display:flex; flex-direction:column; gap:8px; margin:18px 0; font-size:14px; letter-spacing:normal; }
+.email-sign-in input { min-height:48px; width:100%; padding:12px 14px; border:1px solid #d7cebd; border-radius:12px; background:#fffaf5; color:#40392f; font-size:16px; }
+.sign-in-screen .secondary-auth { margin-top:12px; background:transparent; color:#315f39; border:1px solid #d7cebd; box-shadow:none; }
+.sign-in-screen .auth-hint { font-size:13px; color:#786c61; }
+.auth-divider { text-align:center; margin:18px 0 4px; color:#786c61; font-size:14px; }
 .app-shell .dashboard-wordmark { display:block; width:clamp(180px,52vw,270px); height:auto; margin:0 0 12px; object-fit:contain; }
 .app-shell .wing-dashboard>header { align-items:flex-end; gap:16px; }
 .app-shell .wing-dashboard>header>div { min-width:0; }
