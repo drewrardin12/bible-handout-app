@@ -24,3 +24,7 @@ Deploy only Firestore rules (`firebase deploy --only firestore:rules --project b
 
 
 Entry uses a charcoal and burnt-orange theme with a responsive form/cards layout. Save & Next clears prospect details while retaining the current date, location, and event type. Sync Cards triggers the same safe upload flow as automatic syncing, and Saved Cards counts retained local copies.
+
+### Reviewing and correcting entries
+
+Today’s Entries shows locally saved cards by date. Edit works offline and retains a single local card. Corrections upload as immutable revision messages linked by the original unguessable card identifier retained on the Entry device. They update the existing aCOUNT contact when the main app is open and an outing matches. Later revisions take precedence over earlier arrivals, and follow-up status/history stay intact. Entry cannot read private ministry records. Keep this device’s browser storage to retain its saved cards and editing capability.

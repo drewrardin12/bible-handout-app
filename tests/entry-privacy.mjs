@@ -28,5 +28,17 @@ try{
  const imported=await getDoc(doc(member,'ministries/abm/records/entry-import-test'));
  if(imported.data().revision!==1||imported.data().data.outingId!=='outing-test')throw new Error('Duplicate import or incorrect link');
  if(!(await getDoc(doc(member,'ministries/abm/entryInbox/import-test'))).data().processed)throw new Error('Import not acknowledged');
+ const root='11111111-1111-4111-8111-111111111111';
+ await setDoc(doc(anonymous,`ministries/abm/entryInbox/${root}`),{card});
+ await importEntryRecord(member,'abm','approved',root,'outing-test');
+ await updateDoc(doc(member,`ministries/abm/records/entry-${root}`),{data:{...(await getDoc(doc(member,`ministries/abm/records/entry-${root}`))).data().data,status:'Responded'},revision:2,updatedBy:'approved',updatedAt:(await import('firebase/firestore')).serverTimestamp()});
+ await assertSucceeds(setDoc(doc(anonymous,'ministries/abm/entryInbox/correction'),{card:{...card,name:'Corrected',gospelShared:'Yes'},parentId:root,version:2}));
+ await importEntryRecord(member,'abm','approved','correction','outing-test',root);
+ const corrected=(await getDoc(doc(member,`ministries/abm/records/entry-${root}`))).data();
+ if(corrected.data.name!=='Corrected'||corrected.data.status!=='Responded'||corrected.data.gospelShared!=='Yes'||corrected.revision!==3)throw Error('Correction did not preserve follow-up');
+ await setDoc(doc(anonymous,'ministries/abm/entryInbox/stale-correction'),{card:{...card,name:'Stale'},parentId:root,version:1});
+ await importEntryRecord(member,'abm','approved','stale-correction','outing-test',root);
+ if((await getDoc(doc(member,`ministries/abm/records/entry-${root}`))).data().data.name!=='Corrected')throw Error('Stale correction overwrote newest');
+ await assertFails(setDoc(doc(anonymous,'ministries/abm/entryInbox/missing-root'),{card,parentId:'22222222-2222-4222-8222-222222222222',version:1}));
  console.log('Anonymous submit/retry allowed; public reads, edits, cross-ministry and forged import denied.');
 }finally{await env.cleanup();}

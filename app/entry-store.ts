@@ -1,4 +1,4 @@
-export type EntryCard={id:string;card:Record<string,any>;synced?:boolean};
+export type EntryCard={id:string;card:Record<string,any>;synced?:boolean;version?:number;uploadId?:string;rootCard?:Record<string,any>};
 let database:Promise<IDBDatabase>;
 function open(){return database ||= new Promise((resolve,reject)=>{const r=indexedDB.open('acount-entry',1);r.onupgradeneeded=()=>r.result.createObjectStore('items',{keyPath:'id'});r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
 export async function entryItems():Promise<EntryCard[]>{const db=await open();return new Promise((resolve,reject)=>{const r=db.transaction('items').objectStore('items').getAll();r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}

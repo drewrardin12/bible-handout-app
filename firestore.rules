@@ -44,7 +44,12 @@ service cloud.firestore {
           && c.rating is int && c.rating >= 0 && c.rating <= 3;
       }
       allow create: if ministryId == 'abm'
-        && request.resource.data.keys().hasOnly(['card']) && validCard();
+        && (request.resource.data.keys().hasOnly(['card'])
+          || (request.resource.data.keys().hasOnly(['card','parentId','version'])
+            && request.resource.data.parentId is string
+            && request.resource.data.parentId.matches('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$')
+            && exists(/databases/$(database)/documents/ministries/$(ministryId)/entryInbox/$(request.resource.data.parentId))
+            && request.resource.data.version is int && request.resource.data.version > 0)) && validCard();
       allow read: if verified() && member(ministryId);
       // Exact retry is safe; public clients cannot change a submitted card.
       allow update: if request.resource.data == resource.data
