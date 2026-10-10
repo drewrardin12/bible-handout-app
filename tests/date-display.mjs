@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {displayDate,displayHistory} from '../app/date-display.ts';
+assert.equal(displayDate('2026-01-05'),'01-05-2026');
+assert.equal(displayDate('Jan 5, 2026'),'01-05-2026');
+assert.equal(displayDate('01-05-2026'),'01-05-2026');
+assert.equal(displayDate(''),'');
+assert.equal(displayDate('Today'),'Today');
+assert.equal(displayHistory('2026-10-10 · Text · Sent'),'10-10-2026 · Text · Sent');
+assert.equal(displayHistory('October 10, 2026 · Added'),'10-10-2026 · Added');
+console.log('Existing date formats and history display as MM-DD-YYYY; empty and relative labels preserved.');

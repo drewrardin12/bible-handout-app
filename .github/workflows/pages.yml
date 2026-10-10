@@ -21,7 +21,7 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile --ignore-scripts
-      - run: node tests/record-validation.mjs && node tests/contact-filters.mjs && node tests/entry-matching.mjs
+      - run: node tests/record-validation.mjs && node tests/contact-filters.mjs && node tests/entry-matching.mjs && node tests/date-display.mjs
       - run: pnpm exec tsc --noEmit
       - run: pnpm run build
       - uses: actions/configure-pages@v5

@@ -6,11 +6,13 @@ The first visit must be online to download the app. The screen confirms **Ready 
 
 The free-plan workflow imports uploaded cards when signed-in aCOUNT is open. Date met matches an outing's date; one match imports automatically, multiple matches show an outing chooser, and no match waits safely for the outing to be added. Stable record IDs and transactions prevent duplicate imports. Tallies are preserved.
 
-Outing labels use **Location — Month Day, Year**. Existing IDs and contact links remain intact. New and edited outings save the generated name, without a separate name field.
+Outing labels use **Location — MM-DD-YYYY**. Existing IDs and contact links remain intact. New and edited outings save the generated name, without a separate name field.
 
 Server importers in `functions/` were implemented and emulator-tested, but they are not deployed: Firebase requires a billing upgrade for them, and the user chose to stay on the free plan. They are not necessary for the free-plan workflow.
 
 Production entry permissions are awaiting explicit approval. Anonymous devices can create immutable entry cards and retry identical submissions, but cannot read ministry records or edit submitted cards. Approved members retain private record access. Rule deployment was blocked by automatic approval review; no workaround was attempted.
+
+Delete handout moves an outing to Handout Trash, with confirmation. It is excluded from reports and automatic matching; its totals and linked contacts are preserved, and it can be restored. All displayed dates and date inputs use MM-DD-YYYY, while stored date keys remain compatible with existing records.
 
 ## Verification
 
